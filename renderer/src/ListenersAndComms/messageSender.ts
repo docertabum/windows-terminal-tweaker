@@ -5,11 +5,11 @@ const ipcRenderer :IpcRenderer = electron.ipcRenderer ;
 
 const sendTerminalConfigChange = (config : WindowsTerminalConfigType)=>{
    ipcRenderer.send(Channels.terminalConfigChange , JSON.stringify(config)) ; 
-}
+};
 
 const sendGetTerminalConfigData = ()=>{
    ipcRenderer.send(Channels.getTerminalConfigData) ; 
-}
+};
 
 
 export {sendTerminalConfigChange , sendGetTerminalConfigData} ; 

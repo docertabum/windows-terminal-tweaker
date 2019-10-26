@@ -11,7 +11,7 @@ let ipcRenderer: IpcRenderer = electron.ipcRenderer;
 const ConfigPathModal = () => {
     const [errorflag, seterrorflag] = useState(true);
     const [loadFail, configpath,] = useStoreState(state => [state.terminalConfig.loadFail, state.terminalConfig.configFilePath]);
-    const setConfigFilePath = useStoreActions(actions => actions.setConfigFilePath)
+    const setConfigFilePath = useStoreActions(actions => actions.setConfigFilePath);
 
     return (
         <Modal basic size={'small'} closeIcon open={loadFail} onClose={
@@ -31,7 +31,7 @@ const ConfigPathModal = () => {
                     onClick={e => {
                         let newerrorflag = false;
                         if (configpath.length == 0) newerrorflag = true;
-                        if (!newerrorflag) ipcRenderer.send(Channels.terminalConfigPath, configpath)
+                        if (!newerrorflag) ipcRenderer.send(Channels.terminalConfigPath, configpath);
                         seterrorflag(newerrorflag);
                     }
                     }
@@ -39,6 +39,6 @@ const ConfigPathModal = () => {
             </Modal.Actions>
         </Modal>
     );
-}
+};
 
 export default ConfigPathModal; 

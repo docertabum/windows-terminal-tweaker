@@ -89,3 +89,8 @@ typings/
 
 # next.js build output
 .next
+.gitignore
+misc.xml
+modules.xml
+vcs.xml
+windows-terminal-tweaker.iml

@@ -13,9 +13,9 @@ const store = new Store();
 
 let mainWindow: BrowserWindow;
 let terminalConfigFilePath: string | undefined = store.get(ElectronStoreTypes.configFilePath);
-let terminalConfigFileData: string | undefined = undefined
+let terminalConfigFileData: string | undefined = undefined;
 
-const gotTheLock = app.requestSingleInstanceLock()
+const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
     app.quit()
@@ -23,7 +23,7 @@ if (!gotTheLock) {
     app.on('second-instance', (event, commandLine, workingDirectory) => {
         // Someone tried to run a second instance, we should focus our window.
         if (mainWindow) {
-            if (mainWindow.isMinimized()) mainWindow.restore()
+            if (mainWindow.isMinimized()) mainWindow.restore();
             mainWindow.focus()
         }
     })
@@ -47,7 +47,7 @@ const findConfigFilePathForFirstTime = () => {
             console.log(file);
         });
     });
-}
+};
 
 
 const readTerminalConfigFile = () => {
@@ -67,18 +67,18 @@ const readTerminalConfigFile = () => {
                 }
             })
     }
-}
+};
 
 
 function createWindow() {
 
     readTerminalConfigFile();
 
-    if (isDev) {
-        BrowserWindow.addDevToolsExtension(
-            path.join('C:\\Users\\Natesh\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\lmhkpmbekcpmknklioeibfkpmmfibljd\\2.17.0_0')
-        )
-    }
+    // if (isDev) {
+    //     BrowserWindow.addDevToolsExtension(
+    //         path.join('C:\\Users\\Natesh\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\lmhkpmbekcpmknklioeibfkpmmfibljd\\2.17.0_0')
+    //     )
+    // }
 
     mainWindow = new BrowserWindow({
         width: store.get(ElectronStoreTypes.windowWidth),
@@ -120,14 +120,14 @@ function createWindow() {
                 sendConfigLoadSuccess(mainWindow, data.toString());
             }
         })
-    })
+    });
 
     ipcMain.on(Channels.getTerminalConfigData, (event: IpcMessageEvent) => {
         console.log('Get terminal config data : ');
         if (terminalConfigFileData != undefined)
             sendConfigLoadSuccess(mainWindow, terminalConfigFileData);
         else sendConfigLoadFailure(mainWindow, 'Failed to get Terminal Configuration');
-    })
+    });
 
     ipcMain.on(Channels.terminalConfigChange, (event: IpcMessageEvent, config: string) => {
         if (terminalConfigFilePath == undefined) {
